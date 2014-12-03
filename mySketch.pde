@@ -2,6 +2,7 @@ int num = 10;
 int[] arr = new int[10];
 int[][] posArray = {{400, 150}, {250, 250}, {550, 250}, {150, 350}, {310, 350}, {500, 350}, {600, 350}, {80, 450}, {180, 450}, {280, 450}};
 
+boolean running = false;
 int fr = 2;
 
 Node[] balls = new Node[num];
@@ -29,6 +30,20 @@ void setup()
   	y += 40;
   }
   counter = (int)Math.floor( arr.length - 1 ) ;
+  noLoop();
+}
+
+void changeRun()
+{
+	if(running)
+	{
+		running = false;
+		noLoop();
+	}
+	else{
+		running = true;
+		loop();
+	}
 }
 
 void draw()
@@ -58,6 +73,11 @@ void draw()
 	
 }
 
+void step()
+{
+	redraw();
+}
+
 
 void MaxHeapify( int[ ] arr, int i )
 {
@@ -74,7 +94,6 @@ void MaxHeapify( int[ ] arr, int i )
         int temp = arr[ i ];
         arr[ i ] = arr[ largest ];
         arr[ largest ] = temp;
-
         MaxHeapify( arr, largest );
     }
 }
@@ -101,16 +120,22 @@ class Node{
 	int weight;
 	int index;
 	float x, y;
+	boolean changed;
 	Node(int inWeight, float xIn, float yIn, int ind){
 		weight = inWeight;
 		x = xIn;
 		y = yIn;
 		index = ind;
+		changed = false;
 	}
 	void update()
 	{
 		int xPos = posArray[index][0];
 		int yPos = posArray[index][1];
+		if(changed)
+		{
+			stroke(255, 0, 0);
+		}
 		setColor(weight);
 		ellipse(xPos, yPos, 40, 40);
 		fill(0);
@@ -119,6 +144,12 @@ class Node{
 
 	void setWeight(int newWeight)
 	{
+		if(weight == newWeight)
+			changed = false;
+		if(weight != newWeight)
+			changed = true;
+		
+
 		weight = newWeight;
 	}
 

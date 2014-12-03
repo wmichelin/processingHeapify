@@ -6,19 +6,27 @@
       <script type="text/javascript" src="processing.min.js"></script>
       <script type="text/javascript">
       function start() {
-        	var pjs = Processing.getInstanceById("myCanvas");
-        	pjs.start(); 
-    	}
-    	function changeRun()
-   		{
-    	    var pjs = Processing.getInstanceById("myCanvas");
-        	pjs.changeRun(); 
-		}  
+          var pjs = Processing.getInstanceById("myCanvas");
+          pjs.start(); 
+      }
+      function changeRun()
+      {
+          var pjs = Processing.getInstanceById("myCanvas");
+          pjs.changeRun(); 
+    }  
+    function step()
+    {
+      var pjs = Processing.getInstanceById("myCanvas");
+          console.log('stepping');
+          pjs.step(); 
+
+
+    }
       </script>
     </head>
     <body>
-    	<h2>Heapify</h2>
-      <button style="display: block"type="button" onclick="changeRun()">pause/play</button>
+      <h2>Heapify</h2>
+      <button style="display: block"type="button" onclick="changeRun()">START/STOP</button>
       <canvas id="myCanvas" data-processing-sources="mySketch.pde"></canvas>
     </body>
   </html>
